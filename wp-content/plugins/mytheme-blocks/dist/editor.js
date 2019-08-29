@@ -115,6 +115,44 @@ registerBlockType('mytheme-blocks/firstblock', {
 
 /***/ }),
 
+/***/ "./src/blocks/secondblock/index.js":
+/*!*****************************************!*\
+  !*** ./src/blocks/secondblock/index.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var _jsxFileName = "/Applications/MAMP/htdocs/gutenberg-blocks/wp-content/plugins/mytheme-blocks/src/blocks/secondblock/index.js";
+var registerBlockType = wp.blocks.registerBlockType;
+var __ = wp.i18n.__;
+registerBlockType('mytheme-blocks/secondblock', {
+  title: __('Second Block', 'mytheme-blocks'),
+  description: __('Our second block', 'mytheme-blocks'),
+  category: 'layout',
+  icon: 'admin-network',
+  keywords: [__('photo', 'mytheme-blocks'), __('image', 'mytheme-blocks')],
+  edit: function edit() {
+    return wp.element.createElement("p", {
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 11
+      },
+      __self: this
+    }, "Editor");
+  },
+  save: function save() {
+    return wp.element.createElement("p", {
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 14
+      },
+      __self: this
+    }, "Saved");
+  }
+});
+
+/***/ }),
+
 /***/ "./src/editor.js":
 /*!***********************!*\
   !*** ./src/editor.js ***!
@@ -126,6 +164,9 @@ registerBlockType('mytheme-blocks/firstblock', {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _blocks_firstblock__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./blocks/firstblock */ "./src/blocks/firstblock/index.js");
 /* harmony import */ var _blocks_firstblock__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_blocks_firstblock__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _blocks_secondblock__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./blocks/secondblock */ "./src/blocks/secondblock/index.js");
+/* harmony import */ var _blocks_secondblock__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_blocks_secondblock__WEBPACK_IMPORTED_MODULE_1__);
+
 
 
 /***/ })

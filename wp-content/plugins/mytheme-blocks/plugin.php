@@ -28,6 +28,7 @@ function mytheme_blocks_register() {
     );
 
     my_theme_blocks_register_block_type('firstblock');
+    my_theme_blocks_register_block_type('secondblock');
 }
 
 add_action('init', 'mytheme_blocks_register');
