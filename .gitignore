@@ -31,3 +31,5 @@ xmlrpc.php
 /sitemap.xml
 /sitemap.xml.gz
 
+wp-content/themes/firsttheme/node_modules/
+
