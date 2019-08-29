@@ -16,7 +16,7 @@ function mytheme_blocks_register() {
     wp_register_script(
         'mytheme-blocks-firstblock-editor-script',
         plugins_url('blocks/firstblock/index.js', __FILE__),
-        array('wp-blocks', 'wp-i18n')
+        array('wp-blocks', 'wp-i18n', 'wp-element')
     );
 
     register_block_type('mytheme-blocks/firstblock',
