@@ -119,10 +119,15 @@ registerBlockType('mytheme-blocks/firstblock', {
 /*!*****************************************!*\
   !*** ./src/blocks/secondblock/index.js ***!
   \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _styles_editor_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./styles.editor.scss */ "./src/blocks/secondblock/styles.editor.scss");
+/* harmony import */ var _styles_editor_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_styles_editor_scss__WEBPACK_IMPORTED_MODULE_0__);
 var _jsxFileName = "/Applications/MAMP/htdocs/gutenberg-blocks/wp-content/plugins/mytheme-blocks/src/blocks/secondblock/index.js";
+
 var registerBlockType = wp.blocks.registerBlockType;
 var __ = wp.i18n.__;
 registerBlockType('mytheme-blocks/secondblock', {
@@ -131,11 +136,13 @@ registerBlockType('mytheme-blocks/secondblock', {
   category: 'layout',
   icon: 'admin-network',
   keywords: [__('photo', 'mytheme-blocks'), __('image', 'mytheme-blocks')],
-  edit: function edit() {
+  edit: function edit(_ref) {
+    var className = _ref.className;
     return wp.element.createElement("p", {
+      className: className,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 11
+        lineNumber: 13
       },
       __self: this
     }, "Editor");
@@ -144,12 +151,23 @@ registerBlockType('mytheme-blocks/secondblock', {
     return wp.element.createElement("p", {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 14
+        lineNumber: 16
       },
       __self: this
     }, "Saved");
   }
 });
+
+/***/ }),
+
+/***/ "./src/blocks/secondblock/styles.editor.scss":
+/*!***************************************************!*\
+  !*** ./src/blocks/secondblock/styles.editor.scss ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
 
 /***/ }),
 
@@ -165,7 +183,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _blocks_firstblock__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./blocks/firstblock */ "./src/blocks/firstblock/index.js");
 /* harmony import */ var _blocks_firstblock__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_blocks_firstblock__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _blocks_secondblock__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./blocks/secondblock */ "./src/blocks/secondblock/index.js");
-/* harmony import */ var _blocks_secondblock__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_blocks_secondblock__WEBPACK_IMPORTED_MODULE_1__);
 
 
 

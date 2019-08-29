@@ -1,3 +1,5 @@
+import './styles.editor.scss';
+
 const { registerBlockType } = wp.blocks;
 const { __ } = wp.i18n;
 
@@ -7,10 +9,10 @@ registerBlockType('mytheme-blocks/secondblock', {
     category: 'layout',
     icon: 'admin-network',
     keywords: [__('photo', 'mytheme-blocks'),__('image', 'mytheme-blocks')],
-    edit: function() {
-        return <p>Editor</p>;
+    edit: ({className}) => {
+        return <p className={className}>Editor</p>;
     },
-    save: function() {
+    save: () => {
         return <p>Saved</p>;
     }
 });
