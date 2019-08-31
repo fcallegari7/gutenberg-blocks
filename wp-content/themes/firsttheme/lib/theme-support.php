@@ -23,6 +23,19 @@ function _themename_theme_support() {
     ));
     add_theme_support( 'align-wide' );
     add_image_size('_themename-blog-image', 1200, 0);
+    add_theme_support('editor-color-palette', array(
+        array(
+            'name' => __('Greyish Purple', '_themename'),
+            'slug' => 'greyish-purple',
+            'color' => '#524d5b'
+        ),
+        array(
+            'name' => __('Pale Green', '_themename'),
+            'slug' => 'pale-green',
+            'color' => '#9dd3a8'
+        )
+    ));
+    add_theme_support('responsive_embeds');
 }
 
 add_action( 'after_setup_theme', '_themename_theme_support' );
