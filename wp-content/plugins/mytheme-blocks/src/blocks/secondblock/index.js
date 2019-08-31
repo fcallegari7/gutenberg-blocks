@@ -1,6 +1,7 @@
 import './styles.editor.scss';
 import { registerBlockType } from '@wordpress/blocks'; 
 import { __ } from '@wordpress/i18n';
+import { RichText } from "@wordpress/editor";
 
 registerBlockType('mytheme-blocks/secondblock', {
     title: __('Second Block', 'mytheme-blocks'),
@@ -8,10 +9,32 @@ registerBlockType('mytheme-blocks/secondblock', {
     category: 'layout',
     icon: 'admin-network',
     keywords: [__('photo', 'mytheme-blocks'),__('image', 'mytheme-blocks')],
-    edit: ({className}) => {
-        return <p className={className}>Editor</p>;
+    attributes: {
+        content: {
+            type: 'string',
+            source: 'html',
+            selector: 'p'
+        }
     },
-    save: () => {
-        return <p>Saved</p>;
+    edit: ({className, attributes, setAttributes}) => {
+        // return <p className={className}>Editor</p>;
+        const { content } = attributes;
+        const onChangeContent = (content) => {
+            setAttributes({content});
+        }
+        return <RichText 
+                tagName="p"
+                className={className}
+                onChange={ onChangeContent }
+                value={ content }
+                formattingControls={['bold']}
+                />
+    },
+    save: ({ attributes }) => {
+        const { content } = attributes
+        return <RichText.Content
+                tagName="p"
+                value={ content }
+        />
     }
 });
