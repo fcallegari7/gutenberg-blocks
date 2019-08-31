@@ -26,6 +26,7 @@ wp-trackback.php
 xmlrpc.php
 wp-content/themes/firsttheme/node_modules/
 wp-content/plugins/mytheme-blocks/node_modules/
+node_modules/
 
 /.htaccess
 /license.txt
