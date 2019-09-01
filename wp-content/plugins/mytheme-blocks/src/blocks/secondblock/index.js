@@ -7,7 +7,7 @@ import { Toolbar, DropdownMenu } from "@wordpress/components";
 registerBlockType('mytheme-blocks/secondblock', {
     title: __('Second Block', 'mytheme-blocks'),
     description: __('Our second block', 'mytheme-blocks'),
-    category: 'layout',
+    category: 'mytheme-category',
     icon: 'admin-network',
     keywords: [__('photo', 'mytheme-blocks'),__('image', 'mytheme-blocks')],
     styles: [
