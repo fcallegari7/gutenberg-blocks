@@ -46,6 +46,10 @@ registerBlockType('mytheme-blocks/secondblock', {
         },
         customTextColor: {
             type: 'string'
+        },
+        shadow: {
+            type: 'boolean',
+            default: false
         }
     },
     edit: Edit,
