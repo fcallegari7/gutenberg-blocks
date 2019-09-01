@@ -86,6 +86,68 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./node_modules/classnames/index.js":
+/*!******************************************!*\
+  !*** ./node_modules/classnames/index.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
+  Copyright (c) 2017 Jed Watson.
+  Licensed under the MIT License (MIT), see
+  http://jedwatson.github.io/classnames
+*/
+/* global define */
+
+(function () {
+	'use strict';
+
+	var hasOwn = {}.hasOwnProperty;
+
+	function classNames () {
+		var classes = [];
+
+		for (var i = 0; i < arguments.length; i++) {
+			var arg = arguments[i];
+			if (!arg) continue;
+
+			var argType = typeof arg;
+
+			if (argType === 'string' || argType === 'number') {
+				classes.push(arg);
+			} else if (Array.isArray(arg) && arg.length) {
+				var inner = classNames.apply(null, arg);
+				if (inner) {
+					classes.push(inner);
+				}
+			} else if (argType === 'object') {
+				for (var key in arg) {
+					if (hasOwn.call(arg, key) && arg[key]) {
+						classes.push(key);
+					}
+				}
+			}
+		}
+
+		return classes.join(' ');
+	}
+
+	if ( true && module.exports) {
+		classNames.default = classNames;
+		module.exports = classNames;
+	} else if (true) {
+		// register as 'classnames', consistent with npm package name
+		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = (function () {
+			return classNames;
+		}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	} else {}
+}());
+
+
+/***/ }),
+
 /***/ "./src/blocks/firstblock/index.js":
 /*!****************************************!*\
   !*** ./src/blocks/firstblock/index.js ***!
@@ -189,18 +251,6 @@ function (_Component) {
       });
     });
 
-    _defineProperty(_assertThisInitialized(_this), "onChangeBackgroundColor", function (backgroundColor) {
-      _this.props.setAttributes({
-        backgroundColor: backgroundColor
-      });
-    });
-
-    _defineProperty(_assertThisInitialized(_this), "onChangeTextColor", function (textColor) {
-      _this.props.setAttributes({
-        textColor: textColor
-      });
-    });
-
     return _this;
   }
 
@@ -209,37 +259,47 @@ function (_Component) {
     value: function render() {
       var _this$props = this.props,
           className = _this$props.className,
-          attributes = _this$props.attributes;
+          attributes = _this$props.attributes,
+          setTextColor = _this$props.setTextColor,
+          setBackgroundColor = _this$props.setBackgroundColor,
+          backgroundColor = _this$props.backgroundColor,
+          textColor = _this$props.textColor;
       var content = attributes.content,
-          alignment = attributes.alignment,
-          backgroundColor = attributes.backgroundColor,
-          textColor = attributes.textColor;
+          alignment = attributes.alignment;
       return wp.element.createElement(wp.element.Fragment, null, wp.element.createElement(_wordpress_editor__WEBPACK_IMPORTED_MODULE_3__["InspectorControls"], {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 25
+          lineNumber: 19
         },
         __self: this
       }, wp.element.createElement(_wordpress_editor__WEBPACK_IMPORTED_MODULE_3__["PanelColorSettings"], {
         title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('Panel 2', 'mytheme-blocks'),
         colorSettings: [{
-          value: backgroundColor,
-          onChange: this.onChangeBackgroundColor,
+          value: backgroundColor.color,
+          onChange: setBackgroundColor,
           label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('Background Color', 'mytheme-blocks')
         }, {
-          value: textColor,
-          onChange: this.onChangeTextColor,
+          value: textColor.color,
+          onChange: setTextColor,
           label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('Text Color', 'mytheme-blocks')
         }],
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 26
+          lineNumber: 20
         },
         __self: this
-      })), wp.element.createElement(_wordpress_editor__WEBPACK_IMPORTED_MODULE_3__["BlockControls"], {
+      }, wp.element.createElement(_wordpress_editor__WEBPACK_IMPORTED_MODULE_3__["ContrastChecker"], {
+        textColor: textColor.color,
+        backgroundColor: backgroundColor.color,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 43
+          lineNumber: 35
+        },
+        __self: this
+      }))), wp.element.createElement(_wordpress_editor__WEBPACK_IMPORTED_MODULE_3__["BlockControls"], {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 42
         },
         __self: this
       }, wp.element.createElement(_wordpress_editor__WEBPACK_IMPORTED_MODULE_3__["AlignmentToolbar"], {
@@ -247,7 +307,7 @@ function (_Component) {
         onChange: this.onChangeAlignment,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 44
+          lineNumber: 43
         },
         __self: this
       }), wp.element.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["Toolbar"], {
@@ -268,13 +328,13 @@ function (_Component) {
         }]],
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 48
+          lineNumber: 47
         },
         __self: this
       }), content && content.length > 0 && wp.element.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["Toolbar"], {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 65
+          lineNumber: 64
         },
         __self: this
       }, wp.element.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["DropdownMenu"], {
@@ -297,7 +357,7 @@ function (_Component) {
         }]],
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 66
+          lineNumber: 65
         },
         __self: this
       }))), wp.element.createElement(_wordpress_editor__WEBPACK_IMPORTED_MODULE_3__["RichText"], {
@@ -308,12 +368,12 @@ function (_Component) {
         formattingControls: ['bold'],
         style: {
           textAlign: alignment,
-          backgroundColor: backgroundColor,
-          color: textColor
+          backgroundColor: backgroundColor.color,
+          color: textColor.color
         },
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 87
+          lineNumber: 86
         },
         __self: this
       }));
@@ -323,7 +383,9 @@ function (_Component) {
   return Edit;
 }(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Component"]);
 
-/* harmony default export */ __webpack_exports__["default"] = (Edit);
+/* harmony default export */ __webpack_exports__["default"] = (Object(_wordpress_editor__WEBPACK_IMPORTED_MODULE_3__["withColors"])('backgroundColor', {
+  'textColor': 'color'
+})(Edit));
 
 /***/ }),
 
@@ -345,7 +407,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_editor__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/editor */ "@wordpress/editor");
 /* harmony import */ var _wordpress_editor__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_editor__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _edit__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./edit */ "./src/blocks/secondblock/edit.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_5__);
 var _jsxFileName = "/Applications/MAMP/htdocs/gutenberg-blocks/wp-content/plugins/mytheme-blocks/src/blocks/secondblock/index.js";
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
 
 
 
@@ -382,26 +450,40 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])('myt
     },
     textColor: {
       type: 'string'
+    },
+    customBackgroundColor: {
+      type: 'string'
+    },
+    customTextColor: {
+      type: 'string'
     }
   },
   edit: _edit__WEBPACK_IMPORTED_MODULE_4__["default"],
   save: function save(_ref) {
+    var _classnames;
+
     var attributes = _ref.attributes;
     var content = attributes.content,
         alignment = attributes.alignment,
         backgroundColor = attributes.backgroundColor,
-        textColor = attributes.textColor;
+        textColor = attributes.textColor,
+        customBackgroundColor = attributes.customBackgroundColor,
+        customTextColor = attributes.customTextColor;
+    var backgroundClass = Object(_wordpress_editor__WEBPACK_IMPORTED_MODULE_3__["getColorClassName"])('background-color', backgroundColor);
+    var textClass = Object(_wordpress_editor__WEBPACK_IMPORTED_MODULE_3__["getColorClassName"])('color', textColor);
+    var classes = classnames__WEBPACK_IMPORTED_MODULE_5___default()((_classnames = {}, _defineProperty(_classnames, backgroundClass, backgroundClass), _defineProperty(_classnames, textClass, textClass), _classnames));
     return wp.element.createElement(_wordpress_editor__WEBPACK_IMPORTED_MODULE_3__["RichText"].Content, {
       tagName: "p",
+      className: classes,
       value: content,
       style: {
         textAlign: alignment,
-        backgroundColor: backgroundColor,
-        color: textColor
+        backgroundColor: backgroundClass ? undefined : customBackgroundColor,
+        color: textColor ? undefined : customTextColor
       },
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 47
+        lineNumber: 60
       },
       __self: this
     });
