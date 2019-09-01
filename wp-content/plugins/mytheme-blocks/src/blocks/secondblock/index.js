@@ -1,7 +1,7 @@
 import './styles.editor.scss';
 import { registerBlockType } from '@wordpress/blocks'; 
 import { __ } from '@wordpress/i18n';
-import { RichText, BlockControls } from "@wordpress/editor";
+import { RichText, BlockControls, AlignmentToolbar, InspectorControls, PanelColorSettings } from "@wordpress/editor";
 import { Toolbar, DropdownMenu } from "@wordpress/components";
 
 registerBlockType('mytheme-blocks/secondblock', {
@@ -15,33 +15,57 @@ registerBlockType('mytheme-blocks/secondblock', {
             type: 'string',
             source: 'html',
             selector: 'p'
+        },
+        alignment: {
+            type: 'string'
+        },
+        backgroundColor: {
+            type: 'string'
+        },
+        textColor: {
+            type: 'string'
         }
     },
     edit: ({className, attributes, setAttributes}) => {
         // return <p className={className}>Editor</p>;
-        const { content } = attributes;
+        const { content, alignment, backgroundColor, textColor } = attributes;
         const onChangeContent = (content) => {
             setAttributes({content});
         }
+        const onChangeAlignment = (alignment) => {
+            setAttributes({alignment});
+        }
+        const onChangeBackgroundColor = (backgroundColor) => {
+            setAttributes({backgroundColor});
+        }
+        const onChangeTextColor = (textColor) => {
+            setAttributes({textColor});
+        }
         return (
             <>
+            <InspectorControls>
+                <PanelColorSettings 
+                    title={ __('Panel 2', 'mytheme-blocks')}
+                    colorSettings={[
+                        {
+                            value: backgroundColor,
+                            onChange: onChangeBackgroundColor,
+                            label: __('Background Color', 'mytheme-blocks')
+                        },
+                        {
+                            value: textColor,
+                            onChange: onChangeTextColor,
+                            label: __('Text Color', 'mytheme-blocks')
+                        }
+                    ]}
+                />
+
+            </InspectorControls>
             <BlockControls>
-                <Toolbar
-                    controls={[
-                            [{
-                                icon: 'wordpress',
-                                title: __('test', 'mytheme-blocks'),
-                                onClick: () => {alert('hello')},
-                                isActive: false
-                            }],
-                            [{
-                                icon: 'wordpress',
-                                title: __('test', 'mytheme-blocks'),
-                                onClick: () => {alert('hello')},
-                                isActive: false
-                            }]
-                        ]}
-                ></Toolbar>
+                <AlignmentToolbar 
+                    value={ alignment }
+                    onChange={ onChangeAlignment }
+                />
                 <Toolbar
                     controls={[
                             [{
@@ -87,15 +111,17 @@ registerBlockType('mytheme-blocks/secondblock', {
                 onChange={ onChangeContent }
                 value={ content }
                 formattingControls={['bold']}
+                style={ {textAlign: alignment, backgroundColor: backgroundColor, color: textColor} }
             />
             </>
         )
     },
-    save: ({ attributes }) => {
+    save: ({ attributes, alignment, backgroundColor, textColor }) => {
         const { content } = attributes
         return <RichText.Content
                 tagName="p"
                 value={ content }
+                style={ {textAlign: alignment, backgroundColor: backgroundColor, color: textColor} }
         />
     }
 });
