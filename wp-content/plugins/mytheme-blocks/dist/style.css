@@ -3,6 +3,11 @@
   color: white;
   border-radius: 5px;
   padding: 20px; }
+  .wp-block-mytheme-blocks-secondblock.is-style-squared {
+    border-radius: 0; }
+  .wp-block-mytheme-blocks-secondblock.is-style-outlined {
+    border-radius: 0;
+    border: 2px solid currentColor; }
 
 
 /*# sourceMappingURL=style.css.map*/

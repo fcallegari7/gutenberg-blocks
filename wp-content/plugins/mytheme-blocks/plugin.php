@@ -11,7 +11,7 @@ if( !defined('ABSPATH') ) {
     exit;
 }
 
-function mytheme_blocks_categories( $categories, $post ) {
+function mytheme_block_categories( $categories, $post ) {
     return array_merge(
         $categories,
         array(
