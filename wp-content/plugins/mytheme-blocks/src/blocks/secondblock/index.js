@@ -10,6 +10,21 @@ registerBlockType('mytheme-blocks/secondblock', {
     category: 'layout',
     icon: 'admin-network',
     keywords: [__('photo', 'mytheme-blocks'),__('image', 'mytheme-blocks')],
+    styles: [
+        {
+            name: 'rounded',
+            label: __('Rounded', 'mytheme-blocks'),
+            isDefault: true
+        },
+        {
+            name: 'outlined',
+            label: __('Outlined', 'mytheme-blocks')
+        },
+        {
+            name: 'squared',
+            label: __('Squared', 'mytheme-blocks')
+        }
+    ],
     attributes: {
         content: {
             type: 'string',
