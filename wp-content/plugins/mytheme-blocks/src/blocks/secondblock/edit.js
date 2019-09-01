@@ -1,6 +1,6 @@
 import { Component } from "@wordpress/element";
 import { __ } from '@wordpress/i18n';
-import { Toolbar, DropdownMenu } from "@wordpress/components";
+import { Toolbar, DropdownMenu, RangeControl, PanelBody } from "@wordpress/components";
 import { RichText, BlockControls, AlignmentToolbar, InspectorControls, PanelColorSettings, withColors, ContrastChecker } from "@wordpress/editor";
 import classnames from 'classnames';
 
@@ -14,15 +14,31 @@ class Edit extends Component {
     toggleShadow = () => {
         this.props.setAttributes({shadow: !this.props.attributes.shadow});
     }
+    onChangeShadowOpacity = (shadowOpacity) => {
+        this.props.setAttributes({shadowOpacity});
+    }
     render() {
         const {className, attributes, setTextColor, setBackgroundColor, backgroundColor, textColor } = this.props;
-        const { content, alignment, shadow } = attributes;
+        const { content, alignment, shadow, shadowOpacity } = attributes;
         const classes = classnames(className, {
-            'has-shadow': shadow
+            'has-shadow': shadow,
+            [`shadow-opacity-${shadowOpacity * 100}`]: shadowOpacity
         })
         return (
             <>
             <InspectorControls>
+                <PanelBody title={ __('Settings', 'mytheme-blocks')}>
+                    { shadow && 
+                        <RangeControl 
+                            label={ __( 'Shadow Opacity', 'mytheme-blocks' )}
+                            value={ shadowOpacity }
+                            onChange={ this.onChangeShadowOpacity }
+                            min={0.1}
+                            max={0.4}
+                            step={0.1}
+                        />
+                    }
+                </PanelBody>
                 <PanelColorSettings 
                     title={ __('Panel 2', 'mytheme-blocks')}
                     colorSettings={[
@@ -98,7 +114,7 @@ class Edit extends Component {
                 }
             </BlockControls>
             <RichText 
-                tagName="p"
+                tagName="h4"
                 className={classes}
                 onChange={ this.onChangeContent }
                 value={ content }

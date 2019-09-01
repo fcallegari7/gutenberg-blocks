@@ -194,6 +194,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _wordpress_editor__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/editor */ "@wordpress/editor");
 /* harmony import */ var _wordpress_editor__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_editor__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_4__);
 var _jsxFileName = "/Applications/MAMP/htdocs/gutenberg-blocks/wp-content/plugins/mytheme-blocks/src/blocks/secondblock/edit.js";
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -215,6 +217,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -251,6 +254,18 @@ function (_Component) {
       });
     });
 
+    _defineProperty(_assertThisInitialized(_this), "toggleShadow", function () {
+      _this.props.setAttributes({
+        shadow: !_this.props.attributes.shadow
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "onChangeShadowOpacity", function (shadowOpacity) {
+      _this.props.setAttributes({
+        shadowOpacity: shadowOpacity
+      });
+    });
+
     return _this;
   }
 
@@ -265,14 +280,38 @@ function (_Component) {
           backgroundColor = _this$props.backgroundColor,
           textColor = _this$props.textColor;
       var content = attributes.content,
-          alignment = attributes.alignment;
+          alignment = attributes.alignment,
+          shadow = attributes.shadow,
+          shadowOpacity = attributes.shadowOpacity;
+      var classes = classnames__WEBPACK_IMPORTED_MODULE_4___default()(className, _defineProperty({
+        'has-shadow': shadow
+      }, "shadow-opacity-".concat(shadowOpacity * 100), shadowOpacity));
       return wp.element.createElement(wp.element.Fragment, null, wp.element.createElement(_wordpress_editor__WEBPACK_IMPORTED_MODULE_3__["InspectorControls"], {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 19
+          lineNumber: 29
         },
         __self: this
-      }, wp.element.createElement(_wordpress_editor__WEBPACK_IMPORTED_MODULE_3__["PanelColorSettings"], {
+      }, wp.element.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["PanelBody"], {
+        title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('Settings', 'mytheme-blocks'),
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 30
+        },
+        __self: this
+      }, shadow && wp.element.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["RangeControl"], {
+        label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('Shadow Opacity', 'mytheme-blocks'),
+        value: shadowOpacity,
+        onChange: this.onChangeShadowOpacity,
+        min: 0.1,
+        max: 0.4,
+        step: 0.1,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 32
+        },
+        __self: this
+      })), wp.element.createElement(_wordpress_editor__WEBPACK_IMPORTED_MODULE_3__["PanelColorSettings"], {
         title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('Panel 2', 'mytheme-blocks'),
         colorSettings: [{
           value: backgroundColor.color,
@@ -285,7 +324,7 @@ function (_Component) {
         }],
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 20
+          lineNumber: 42
         },
         __self: this
       }, wp.element.createElement(_wordpress_editor__WEBPACK_IMPORTED_MODULE_3__["ContrastChecker"], {
@@ -293,13 +332,19 @@ function (_Component) {
         backgroundColor: backgroundColor.color,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 35
+          lineNumber: 57
         },
         __self: this
       }))), wp.element.createElement(_wordpress_editor__WEBPACK_IMPORTED_MODULE_3__["BlockControls"], {
+        controls: [{
+          icon: 'wordpress',
+          title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('Shadow', 'mytheme-blocks'),
+          onClick: this.toggleShadow,
+          isActive: shadow
+        }],
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 42
+          lineNumber: 64
         },
         __self: this
       }, wp.element.createElement(_wordpress_editor__WEBPACK_IMPORTED_MODULE_3__["AlignmentToolbar"], {
@@ -307,7 +352,7 @@ function (_Component) {
         onChange: this.onChangeAlignment,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 43
+          lineNumber: 73
         },
         __self: this
       }), wp.element.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["Toolbar"], {
@@ -328,13 +373,13 @@ function (_Component) {
         }]],
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 47
+          lineNumber: 77
         },
         __self: this
       }), content && content.length > 0 && wp.element.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["Toolbar"], {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 64
+          lineNumber: 94
         },
         __self: this
       }, wp.element.createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["DropdownMenu"], {
@@ -357,12 +402,12 @@ function (_Component) {
         }]],
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 65
+          lineNumber: 95
         },
         __self: this
       }))), wp.element.createElement(_wordpress_editor__WEBPACK_IMPORTED_MODULE_3__["RichText"], {
-        tagName: "p",
-        className: className,
+        tagName: "h4",
+        className: classes,
         onChange: this.onChangeContent,
         value: content,
         formattingControls: ['bold'],
@@ -373,7 +418,7 @@ function (_Component) {
         },
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 86
+          lineNumber: 116
         },
         __self: this
       }));
@@ -411,6 +456,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_5__);
 var _jsxFileName = "/Applications/MAMP/htdocs/gutenberg-blocks/wp-content/plugins/mytheme-blocks/src/blocks/secondblock/index.js";
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
@@ -419,6 +468,36 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+var attributes = {
+  content: {
+    type: 'string',
+    source: 'html',
+    selector: 'h4'
+  },
+  alignment: {
+    type: 'string'
+  },
+  backgroundColor: {
+    type: 'string'
+  },
+  textColor: {
+    type: 'string'
+  },
+  customBackgroundColor: {
+    type: 'string'
+  },
+  customTextColor: {
+    type: 'string'
+  },
+  shadow: {
+    type: 'boolean',
+    default: false
+  },
+  shadowOpacity: {
+    type: 'number',
+    default: 0.3
+  }
+};
 Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])('mytheme-blocks/secondblock', {
   title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('Second Block', 'mytheme-blocks'),
   description: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('Our second block', 'mytheme-blocks'),
@@ -436,44 +515,65 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])('myt
     name: 'squared',
     label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('Squared', 'mytheme-blocks')
   }],
-  attributes: {
-    content: {
-      type: 'string',
-      source: 'html',
-      selector: 'p'
-    },
-    alignment: {
-      type: 'string'
-    },
-    backgroundColor: {
-      type: 'string'
-    },
-    textColor: {
-      type: 'string'
-    },
-    customBackgroundColor: {
-      type: 'string'
-    },
-    customTextColor: {
-      type: 'string'
-    }
-  },
-  edit: _edit__WEBPACK_IMPORTED_MODULE_4__["default"],
-  save: function save(_ref) {
-    var _classnames;
+  attributes: attributes,
+  deprecated: [{
+    attributes: _objectSpread({}, attributes, {
+      content: {
+        type: 'string',
+        source: 'html',
+        selector: 'p'
+      }
+    }),
+    save: function save(_ref) {
+      var _classnames;
 
-    var attributes = _ref.attributes;
+      var attributes = _ref.attributes;
+      var content = attributes.content,
+          alignment = attributes.alignment,
+          backgroundColor = attributes.backgroundColor,
+          textColor = attributes.textColor,
+          customBackgroundColor = attributes.customBackgroundColor,
+          customTextColor = attributes.customTextColor,
+          shadow = attributes.shadow,
+          shadowOpacity = attributes.shadowOpacity;
+      var backgroundClass = Object(_wordpress_editor__WEBPACK_IMPORTED_MODULE_3__["getColorClassName"])('background-color', backgroundColor);
+      var textClass = Object(_wordpress_editor__WEBPACK_IMPORTED_MODULE_3__["getColorClassName"])('color', textColor);
+      var classes = classnames__WEBPACK_IMPORTED_MODULE_5___default()((_classnames = {}, _defineProperty(_classnames, backgroundClass, backgroundClass), _defineProperty(_classnames, textClass, textClass), _defineProperty(_classnames, 'has-shadow', shadow), _defineProperty(_classnames, "shadow-opacity-".concat(shadowOpacity * 100), shadowOpacity), _classnames));
+      return wp.element.createElement(_wordpress_editor__WEBPACK_IMPORTED_MODULE_3__["RichText"].Content, {
+        tagName: "h4",
+        className: classes,
+        value: content,
+        style: {
+          textAlign: alignment,
+          backgroundColor: backgroundClass ? undefined : customBackgroundColor,
+          color: textColor ? undefined : customTextColor
+        },
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 81
+        },
+        __self: this
+      });
+    }
+  }],
+  edit: _edit__WEBPACK_IMPORTED_MODULE_4__["default"],
+  save: function save(_ref2) {
+    var _classnames2;
+
+    var attributes = _ref2.attributes;
     var content = attributes.content,
         alignment = attributes.alignment,
         backgroundColor = attributes.backgroundColor,
         textColor = attributes.textColor,
         customBackgroundColor = attributes.customBackgroundColor,
-        customTextColor = attributes.customTextColor;
+        customTextColor = attributes.customTextColor,
+        shadow = attributes.shadow,
+        shadowOpacity = attributes.shadowOpacity;
     var backgroundClass = Object(_wordpress_editor__WEBPACK_IMPORTED_MODULE_3__["getColorClassName"])('background-color', backgroundColor);
     var textClass = Object(_wordpress_editor__WEBPACK_IMPORTED_MODULE_3__["getColorClassName"])('color', textColor);
-    var classes = classnames__WEBPACK_IMPORTED_MODULE_5___default()((_classnames = {}, _defineProperty(_classnames, backgroundClass, backgroundClass), _defineProperty(_classnames, textClass, textClass), _classnames));
+    var classes = classnames__WEBPACK_IMPORTED_MODULE_5___default()((_classnames2 = {}, _defineProperty(_classnames2, backgroundClass, backgroundClass), _defineProperty(_classnames2, textClass, textClass), _defineProperty(_classnames2, 'has-shadow', shadow), _defineProperty(_classnames2, "shadow-opacity-".concat(shadowOpacity * 100), shadowOpacity), _classnames2));
     return wp.element.createElement(_wordpress_editor__WEBPACK_IMPORTED_MODULE_3__["RichText"].Content, {
-      tagName: "p",
+      tagName: "h4",
       className: classes,
       value: content,
       style: {
@@ -483,7 +583,7 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])('myt
       },
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 60
+        lineNumber: 105
       },
       __self: this
     });
