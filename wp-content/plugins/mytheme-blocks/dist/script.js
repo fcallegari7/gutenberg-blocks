@@ -112,6 +112,32 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./src/blocks/teammember/script.js":
+/*!*****************************************!*\
+  !*** ./src/blocks/teammember/script.js ***!
+  \*****************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style.scss */ "./src/blocks/teammember/style.scss");
+/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_style_scss__WEBPACK_IMPORTED_MODULE_0__);
+
+
+/***/ }),
+
+/***/ "./src/blocks/teammember/style.scss":
+/*!******************************************!*\
+  !*** ./src/blocks/teammember/style.scss ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
 /***/ "./src/script.js":
 /*!***********************!*\
   !*** ./src/script.js ***!
@@ -122,6 +148,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _blocks_secondblock_script__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./blocks/secondblock/script */ "./src/blocks/secondblock/script.js");
+/* harmony import */ var _blocks_teammember_script__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./blocks/teammember/script */ "./src/blocks/teammember/script.js");
+
 
 
 /***/ })

@@ -19,5 +19,16 @@
     .wp-block-mytheme-blocks-secondblock.has-shadow.shadow-opacity-40 {
       box-shadow: 0 0 20px rgba(0, 0, 0, 0.4); }
 
+.wp-block-mytheme-blocks-teammember__title {
+  color: #222;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 0; }
+
+.wp-block-mytheme-blocks-teammember__info {
+  color: #565656;
+  font-weight: 300;
+  margin-bottom: 5px; }
+
 
 /*# sourceMappingURL=style.css.map*/
