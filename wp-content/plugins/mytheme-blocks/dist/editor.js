@@ -556,11 +556,32 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])('myt
       });
     }
   }],
+  transforms: {
+    from: [{
+      type: 'block',
+      blocks: ['core/paragraph'],
+      transform: function transform(_ref2) {
+        var content = _ref2.content,
+            align = _ref2.align;
+        return Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["createBlock"])('mytheme-blocks/secondblock', {
+          content: content,
+          textAlign: align
+        });
+      }
+    }, {
+      type: 'prefix',
+      prefix: '#',
+      transform: function transform() {
+        return Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["createBlock"])('mytheme-blocks/secondblock');
+      }
+    }],
+    to: []
+  },
   edit: _edit__WEBPACK_IMPORTED_MODULE_4__["default"],
-  save: function save(_ref2) {
+  save: function save(_ref3) {
     var _classnames2;
 
-    var attributes = _ref2.attributes;
+    var attributes = _ref3.attributes;
     var content = attributes.content,
         alignment = attributes.alignment,
         backgroundColor = attributes.backgroundColor,
@@ -583,7 +604,7 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])('myt
       },
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 105
+        lineNumber: 127
       },
       __self: this
     });

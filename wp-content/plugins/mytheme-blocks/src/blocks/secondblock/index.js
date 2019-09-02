@@ -1,5 +1,5 @@
 import './styles.editor.scss';
-import { registerBlockType } from '@wordpress/blocks'; 
+import { registerBlockType, createBlock } from '@wordpress/blocks'; 
 import { __ } from '@wordpress/i18n';
 import { RichText, getColorClassName } from "@wordpress/editor";
 import Edit from './edit';
@@ -91,6 +91,28 @@ registerBlockType('mytheme-blocks/secondblock', {
             }
         }
     ],
+    transforms: {
+        from: [
+            {
+                type: 'block',
+                blocks: ['core/paragraph'],
+                transform: ( {content, align}) => {
+                    return createBlock('mytheme-blocks/secondblock', {
+                        content: content,
+                        textAlign: align
+                    });
+                }
+            },
+            {
+                type: 'prefix',
+                prefix: '#',
+                transform: () => {
+                    return createBlock('mytheme-blocks/secondblock');
+                }
+            }
+        ],
+        to: []
+    },
     edit: Edit,
     save: ({ attributes }) => {
         const { content, alignment, backgroundColor, textColor, customBackgroundColor, customTextColor, shadow, shadowOpacity } = attributes
