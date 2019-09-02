@@ -575,13 +575,29 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])('myt
         return Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["createBlock"])('mytheme-blocks/secondblock');
       }
     }],
-    to: []
+    to: [{
+      type: 'block',
+      blocks: ['core/paragraph'],
+      isMatch: function isMatch(_ref3) {
+        var content = _ref3.content;
+        if (content) return true;
+        return false;
+      },
+      transform: function transform(_ref4) {
+        var content = _ref4.content,
+            textAlign = _ref4.textAlign;
+        return Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["createBlock"])('core/paragraph', {
+          content: content,
+          align: textAlign
+        });
+      }
+    }]
   },
   edit: _edit__WEBPACK_IMPORTED_MODULE_4__["default"],
-  save: function save(_ref3) {
+  save: function save(_ref5) {
     var _classnames2;
 
-    var attributes = _ref3.attributes;
+    var attributes = _ref5.attributes;
     var content = attributes.content,
         alignment = attributes.alignment,
         backgroundColor = attributes.backgroundColor,
@@ -604,7 +620,7 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])('myt
       },
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 127
+        lineNumber: 143
       },
       __self: this
     });

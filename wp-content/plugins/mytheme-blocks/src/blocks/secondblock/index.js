@@ -111,7 +111,23 @@ registerBlockType('mytheme-blocks/secondblock', {
                 }
             }
         ],
-        to: []
+        to: [
+            {
+                type: 'block',
+                blocks: ['core/paragraph'],
+                isMatch: ({content}) => {
+                    if(content) return true;
+                    return false;
+                },
+                transform: ( {content, textAlign}) => {
+                    return createBlock('core/paragraph', {
+                        content: content,
+                        align: textAlign
+                    });
+                }
+
+            }
+        ]
     },
     edit: Edit,
     save: ({ attributes }) => {
