@@ -1,4 +1,5 @@
 import './style.editor.scss';
+import './parent';
 import { registerBlockType } from '@wordpress/blocks';
 import { __ } from '@wordpress/i18n';
 import edit from "./edit";
@@ -21,6 +22,7 @@ registerBlockType('mytheme-blocks/teammember', {
     title: __( 'Team Member', 'mytheme-blocks'),
     description: __( 'Block showing a Team Member', 'mytheme-blocks'),
     icon: 'admin-users',
+    parent: ['mytheme-blocks/teammembers'],
     category: 'mytheme-category',
     keywords: [ __('team','mytheme-blocks'), __('member','mytheme-blocks'), __('person','mytheme-blocks')],
     attributes,
