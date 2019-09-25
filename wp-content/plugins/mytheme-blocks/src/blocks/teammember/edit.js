@@ -1,6 +1,8 @@
 import { Component } from "@wordpress/element";
-import { RichText } from "@wordpress/editor";
+import { RichText, MediaPlaceholder } from "@wordpress/editor";
 import { __ } from "@wordpress/i18n";
+import { isBlobURL } from "@wordpress/blob";
+import { Spinner, withNotices } from "@wordpress/components";
 
 class TeamMemberEdit extends Component {
     onChangeTitle = (title) => {
@@ -9,11 +11,42 @@ class TeamMemberEdit extends Component {
     onChangeInfo = (info) => {
         this.props.setAttributes({info});
     }
+    onSelectImage = ({id, url, alt}) => {
+        this.props.setAttributes({
+            id, url, alt
+        });
+    }
+    onSelectURL = ({url}) => {
+        this.props.setAttributes({
+            url,
+            id: null,
+            alt: ''
+        })
+    }
+    onUploadError = (message) => {
+        const { noticeOperations } = this.props;
+        noticeOperations.createErrorNotice(message);
+    }
     render() {
-        const { className, attributes } = this.props;
-        const { title, info } = attributes;
+        const { className, attributes, noticeUI } = this.props;
+        const { title, info, url, alt } = attributes;
         return (
             <div className={ className }>
+                {url ? 
+                    <>
+                        <img src={src} alt={alt} />
+                        {isBlobURL(url) && <Spinner />}
+                    </>
+                    : <MediaPlaceholder 
+                        icon="format-image"
+                        onSelect={this.onSelectImage}
+                        onSelectURL={this.onSelectURL}
+                        onError={this.onUploadError}
+                        accept="image/*"
+                        allowedTypes={['image']}
+                        notices={noticeUI}
+                    />
+                }
                 <RichText 
                     className={'wp-block-mytheme-blocks-teammember__title'}
                     tagName="h4"
@@ -37,4 +70,4 @@ class TeamMemberEdit extends Component {
     }
 }
 
-export default TeamMemberEdit;
+export default withNotices(TeamMemberEdit);

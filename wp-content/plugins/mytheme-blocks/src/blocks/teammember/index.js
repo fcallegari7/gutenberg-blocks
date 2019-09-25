@@ -15,6 +15,22 @@ const attributes = {
         type: 'string',
         source: 'html',
         selector: 'p'
+    },
+    id: {
+        type: 'number'
+    },
+    alt: {
+        type: 'string',
+        source: 'attribute',
+        selector: 'img',
+        attribute: 'alt',
+        default: ''
+    },
+    url: {
+        type: 'string',
+        source: 'attribute',
+        selector: 'img',
+        attribute: 'src',
     }
 }
 
@@ -23,13 +39,20 @@ registerBlockType('mytheme-blocks/teammember', {
     description: __( 'Block showing a Team Member', 'mytheme-blocks'),
     icon: 'admin-users',
     parent: ['mytheme-blocks/teammembers'],
+    supports: {
+        reusable: false,
+        html: false
+    },
     category: 'mytheme-category',
     keywords: [ __('team','mytheme-blocks'), __('member','mytheme-blocks'), __('person','mytheme-blocks')],
     attributes,
     save: ( {attributes} ) => {
-        const { title, info } = attributes;
+        const { title, info, url, alt, id } = attributes;
         return (
             <div>
+                {url && 
+                    <img src={url} alt={alt} className={id ? `wp-image-${id}`: null}/>
+                }
                 {title && 
                     <RichText.Content
                         className={'wp-block-mytheme-blocks-teammember__title'}

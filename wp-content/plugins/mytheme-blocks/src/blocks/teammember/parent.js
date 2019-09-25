@@ -15,6 +15,9 @@ registerBlockType('mytheme-blocks/teammembers', {
     description: __('Block showing Team Members', 'mytheme-blocks'),
     icon: 'grid-view',
     category: 'mytheme-category',
+    supports: {
+        html: false
+    },
     keywords: [ __('team', 'mytheme-blocks'), __('member', 'mytheme-blocks'), __('person', 'mytheme-blocks')],
     attributes,
     edit({className, attributes, setAttributes}) {
