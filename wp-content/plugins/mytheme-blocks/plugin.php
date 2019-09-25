@@ -64,6 +64,8 @@ function mytheme_blocks_register() {
 
     my_theme_blocks_register_block_type('firstblock');
     my_theme_blocks_register_block_type('secondblock');
+    my_theme_blocks_register_block_type('teammember');
+    my_theme_blocks_register_block_type('teammembers');
 }
 
 add_action('init', 'mytheme_blocks_register');

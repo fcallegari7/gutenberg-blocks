@@ -1,0 +1,28 @@
+.wp-block-mytheme-blocks-teammembers {
+    display: block;
+    margin-left: 0;
+    margin-right: 0;
+    @for $i from 1 through 6 {
+        &.has-#{$i}-columns {
+            [data-type="mytheme-blocks/teammember"] {
+                width: calc(100%/#{$i});
+            }
+        }
+    } 
+    > .editor-inner-blocks > .editor-block-list__layout {
+        display: flex;
+        flex-wrap: wrap;
+        .block-list-appender {
+            width: 100%;
+        }
+        > [data-type="mytheme-blocks/teammember"] {
+            max-width: none;
+            margin-left: 0;
+            margin-right: 0;
+        }
+    }
+    .wp-block-mytheme-blocks-teammember {
+        margin: 0;
+        width: auto !important;
+    }
+}
