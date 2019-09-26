@@ -16,7 +16,8 @@ registerBlockType('mytheme-blocks/teammembers', {
     icon: 'grid-view',
     category: 'mytheme-category',
     supports: {
-        html: false
+        html: false,
+        align: ['wide', 'full']
     },
     keywords: [ __('team', 'mytheme-blocks'), __('member', 'mytheme-blocks'), __('person', 'mytheme-blocks')],
     attributes,

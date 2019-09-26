@@ -2,7 +2,8 @@ import { Component } from "@wordpress/element";
 import { RichText, MediaPlaceholder, BlockControls, MediaUpload, MediaUploadCheck, InspectorControls } from "@wordpress/editor";
 import { __ } from "@wordpress/i18n";
 import { isBlobURL } from "@wordpress/blob";
-import { Spinner, withNotices, Toolbar, IconButton, PanelBody, TextareaControl } from "@wordpress/components";
+import { Spinner, withNotices, Toolbar, IconButton, PanelBody, TextareaControl, SelectControl } from "@wordpress/components";
+import { withSelect } from "@wordpress/data";
 
 class TeamMemberEdit extends Component {
     componentDidMount() {
@@ -49,23 +50,53 @@ class TeamMemberEdit extends Component {
             alt
         })
     }
+    onImageSizeChange = (url) => {
+        this.props.setAttributes({
+            url
+        })
+    }
+    getImageSizes() {
+        const { image, imageSizes } = this.props;
+        if (!image) return [];
+        let options = [];
+        const sizes = image.media_details.sizes;
+        for( const key in sizes ) {
+            const size = sizes[key];
+            const imageSize = imageSizes.find(size => size.slug === key);
+            if (imageSize) {
+                options.push({
+                    label: imageSize.name,
+                    value: size.source_url
+                })
+            }
+        }
+        return options;
+    }
     render() {
         const { className, attributes, noticeUI } = this.props;
         const { title, info, url, alt, id } = attributes;
         return (
             <>  
-                {(url && !isBlobURL(url)) &&
-                    <InspectorControls>
-                        <PanelBody title={ __("Image Settings", "mytheme-blocks") }>
+                <InspectorControls>
+                    <PanelBody title={ __("Image Settings", "mytheme-blocks") }>
+                        {(url && !isBlobURL(url)) &&
                             <TextareaControl 
-                                label={ __('Alt text', "mytheme-blocks") }
+                                label={ __('Alt Text', "mytheme-blocks") }
                                 value={ alt }
                                 onChange={ this.updateAlt }
                                 help={ __( 'Alternative text describes the image to people who can not see it', 'mytheme-blocks') }
                             />
-                        </PanelBody>
-                    </InspectorControls>
-                }
+                        }
+                        {id && 
+                            <SelectControl 
+                                label={ __('Image Size', "mytheme-blocks") }
+                                options={ this.getImageSizes() }
+                                onChange={ this.onImageSizeChange }
+                                value={url}
+                            />
+                        }
+                    </PanelBody>
+                </InspectorControls>
                 <BlockControls>
                     {url &&
                         <Toolbar>
@@ -137,4 +168,10 @@ class TeamMemberEdit extends Component {
     }
 }
 
-export default withNotices(TeamMemberEdit);
+export default withSelect((select, props) => {
+    const id = props.attributes.id;
+    return {
+        image: id ? select('core').getMedia(id) : null,
+        imageSizes: select('core/editor').getEditorSettings().imageSizes
+    }
+})(withNotices(TeamMemberEdit));
