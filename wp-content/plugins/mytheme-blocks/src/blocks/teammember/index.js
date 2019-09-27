@@ -36,8 +36,8 @@ const attributes = {
     social: {
         type: 'array',
         default: [
-            { link: 'http://facebook.com', icon: 'wordpress' },
-            { link: 'http://facebook.com', icon: 'wordpress' }
+            { link: '', icon: 'wordpress' },
+            { link: '', icon: 'wordpress' }
         ],
         source: 'query',
         selector: '.wp-block-mytheme-blocks-teammember__social ul li',

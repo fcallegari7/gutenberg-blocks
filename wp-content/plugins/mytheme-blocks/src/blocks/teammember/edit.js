@@ -153,7 +153,7 @@ class TeamMemberEdit extends Component {
                 <div className={ className }>
                     {url ? 
                         <>
-                            <img src={src} alt={alt} />
+                            <img src={url} alt={alt} />
                             {isBlobURL(url) && <Spinner />}
                         </>
                         : <MediaPlaceholder 
@@ -185,11 +185,13 @@ class TeamMemberEdit extends Component {
                     <div className={'wp-block-mytheme-blocks-teammember__social'}>
                         <ul>
                             {social.map((item, index) => {
-                                <li
-                                    key={index}
-                                    onClick={() => this.setState({selectedLink: index})}
-                                    className={this.state.selectedLink === index ? 'is-selected' : null}
-                                ><Dashicon icon={item.icon} size={16}/></li>
+                                return (
+                                    <li
+                                        key={index}
+                                        onClick={() => this.setState({selectedLink: index})}
+                                        className={ this.state.selectedLink === index ? 'is-selected' : null }
+                                    ><Dashicon icon={item.icon} size={16} /></li>
+                                )
                             })}
                             {isSelected && 
                                 <li className={'wp-block-mytheme-blocks-teammember__addIconLI'}>
