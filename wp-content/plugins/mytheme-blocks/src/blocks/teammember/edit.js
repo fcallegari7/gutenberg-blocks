@@ -2,10 +2,15 @@ import { Component } from "@wordpress/element";
 import { RichText, MediaPlaceholder, BlockControls, MediaUpload, MediaUploadCheck, InspectorControls } from "@wordpress/editor";
 import { __ } from "@wordpress/i18n";
 import { isBlobURL } from "@wordpress/blob";
-import { Spinner, withNotices, Toolbar, IconButton, PanelBody, TextareaControl, SelectControl } from "@wordpress/components";
+import { Spinner, withNotices, Toolbar, IconButton, PanelBody, TextareaControl, SelectControl, Dashicon, Tooltip } from "@wordpress/components";
 import { withSelect } from "@wordpress/data";
 
 class TeamMemberEdit extends Component {
+
+    state = {
+        selectedLink: null
+    }
+
     componentDidMount() {
         const {attributes, setAttributes} = this.props;
         const { url, id } = attributes;
@@ -13,6 +18,13 @@ class TeamMemberEdit extends Component {
             setAttributes({
                 url: '',
                 alt: ''
+            })
+        }
+    }
+    componentDidUpdate( prevProps ) {
+        if(prevProps.isSelected && !this.props.isSelected) {
+            this.setState({
+                selectedLink: null
             })
         }
     }
@@ -72,9 +84,19 @@ class TeamMemberEdit extends Component {
         }
         return options;
     }
+    addNewLink = () => {
+        const { setAttributes, attributes } = this.props;
+        const { social } = attributes;
+        setAttributes({
+            social: [...social, {link: '', icon: 'wordpress'}]
+        })
+        this.setState({
+            selectedLink: social.length
+        })
+    }
     render() {
-        const { className, attributes, noticeUI } = this.props;
-        const { title, info, url, alt, id } = attributes;
+        const { className, attributes, noticeUI, isSelected } = this.props;
+        const { title, info, url, alt, id, social } = attributes;
         return (
             <>  
                 <InspectorControls>
@@ -160,6 +182,26 @@ class TeamMemberEdit extends Component {
                         placeholder={__('Member Info', 'mytheme-blocks')}
                         formattingControls={[]}
                     />
+                    <div className={'wp-block-mytheme-blocks-teammember__social'}>
+                        <ul>
+                            {social.map((item, index) => {
+                                <li
+                                    key={index}
+                                    onClick={() => this.setState({selectedLink: index})}
+                                    className={this.state.selectedLink === index ? 'is-selected' : null}
+                                ><Dashicon icon={item.icon} size={16}/></li>
+                            })}
+                            {isSelected && 
+                                <li className={'wp-block-mytheme-blocks-teammember__addIconLI'}>
+                                    <Tooltip text={__('Add Item', 'mytheme-blocks')}>
+                                        <button className={'wp-block-mytheme-blocks-teammember__addIcon'} onClick={this.addNewLink}>
+                                            <Dashicon icon={'plus'} size={14}/>
+                                        </button>
+                                    </Tooltip>
+                                </li>
+                            }
+                        </ul>
+                    </div>
 
                 </div>
             </>
