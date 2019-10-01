@@ -94,6 +94,26 @@ class TeamMemberEdit extends Component {
             selectedLink: social.length
         })
     }
+    updateSocialItem = (type, value) => {
+        const { setAttributes, attributes } = this.props;
+        const { social } = attributes;
+        const { selectedLink } = this.state;
+        let new_social = [...social];
+        new_social[selectedLink][type] = value;
+        setAttributes({social: new_social});
+    }
+    removeLink = (e) => {
+        e.preventDefault();
+        const { setAttributes, attributes } = this.props;
+        const { social } = attributes;
+        const { selectedLink } = this.state;
+        setAttributes({
+            social: [...social.slice(0, selectedLink), ...social.slice(selectedLink + 1)]
+        })
+        this.setState({
+            selectedLink: null
+        })
+    }
     render() {
         const { className, attributes, noticeUI, isSelected } = this.props;
         const { title, info, url, alt, id, social } = attributes;
@@ -208,11 +228,16 @@ class TeamMemberEdit extends Component {
                         <div className={'wp-block-mytheme-blocks-teammember__linkForm'}>
                                 <TextControl 
                                     label={__('Icon', 'mytheme-blocks')}
+                                    value={social[this.state.selectedLink].icon}
+                                    onChange={(icon) => this.updateSocialItem('icon', icon)}
                                 />
                                 <URLInput 
                                     label={__('URL', 'mytheme-blocks')}
+                                    value={social[this.state.selectedLink].icon}
+                                    onChange={(url) => this.updateSocialItem('link', url)}
                                 />
-                                <a className={'wp-block-mytheme-blocks-teammember__removeLink'}>
+                                <a className={'wp-block-mytheme-blocks-teammember__removeLink'}
+                                    onChange={this.removeLink}>
                                     {__('Remove Link', 'mytheme-blocks')}
                                 </a>
                         </div>
