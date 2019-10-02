@@ -4,6 +4,7 @@ import { __ } from "@wordpress/i18n";
 import { isBlobURL } from "@wordpress/blob";
 import { Spinner, withNotices, Toolbar, IconButton, PanelBody, TextareaControl, SelectControl, Dashicon, Tooltip, TextControl } from "@wordpress/components";
 import { withSelect } from "@wordpress/data";
+import { SortableContainer, SortableElement, arrayMove } from 'react-sortable-hoc';
 
 class TeamMemberEdit extends Component {
 
@@ -114,9 +115,49 @@ class TeamMemberEdit extends Component {
             selectedLink: null
         })
     }
+    onSortEnd = (oldIndex, newIndex) => {
+        const { setAttributes, attributes } = this.props;
+        const { social } = attributes;
+        let new_social = arrayMove(social, oldIndex, newIndex);
+        setAttributes({social: new_social});
+        this.setState({selectedLink: null});
+    }
     render() {
         const { className, attributes, noticeUI, isSelected } = this.props;
         const { title, info, url, alt, id, social } = attributes;
+
+        const SortableList = SortableContainer(() => {
+            return (
+                <ul>
+                    {social.map((item, index) => {
+                        let SortableItem = SortableElement(() => {
+                            return (
+                                <li
+                                    key={index}
+                                    onClick={() => this.setState({selectedLink: index})}
+                                    className={this.state.selectedLink === index ? 'is-selected' : null}
+                                >
+                                    <Dashicon icon={item.icon} size={16} />
+                                </li>
+                            )
+                        })
+                        return <SortableItem key={index} index={index} />
+                    })}
+                    {isSelected &&
+                        <li className={'wp-block-mytheme-blocks-team-member__addIconLI'}>
+                            <Tooltip text={__('Add Item', 'mytheme-blocks')}>
+                                <button
+                                    className={'wp-block-mytheme-blocks-team-member__addIcon'}
+                                    onClick={ this.addNewLink }
+                                >
+                                    <Dashicon icon={'plus'} size={14} />
+                                </button>
+                            </Tooltip>
+                        </li>
+                    }
+                </ul>
+            )
+        })
         return (
             <>  
                 <InspectorControls>
@@ -203,7 +244,13 @@ class TeamMemberEdit extends Component {
                         formattingControls={[]}
                     />
                     <div className={'wp-block-mytheme-blocks-teammember__social'}>
-                        <ul>
+                        <SortableList 
+                            axis="x"
+                            helperClass={'social_dragging'}
+                            distance={10}
+                            onSortEnd={({oldIndex, newIndex}) => this.onSortEnd(oldIndex, newIndex) }
+                        />
+                        {/* <ul>
                             {social.map((item, index) => {
                                 return (
                                     <li
@@ -222,7 +269,7 @@ class TeamMemberEdit extends Component {
                                     </Tooltip>
                                 </li>
                             }
-                        </ul>
+                        </ul> */}
                     </div>
                     {this.state.selectedLink !== null && 
                         <div className={'wp-block-mytheme-blocks-teammember__linkForm'}>
@@ -233,7 +280,7 @@ class TeamMemberEdit extends Component {
                                 />
                                 <URLInput 
                                     label={__('URL', 'mytheme-blocks')}
-                                    value={social[this.state.selectedLink].icon}
+                                    value={social[this.state.selectedLink].link}
                                     onChange={(url) => this.updateSocialItem('link', url)}
                                 />
                                 <a className={'wp-block-mytheme-blocks-teammember__removeLink'}
