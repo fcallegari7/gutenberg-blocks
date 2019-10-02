@@ -1,4 +1,4 @@
-import { registerBlockType } from '@wordpress/blocks';
+import { registerBlockType, createBlock } from '@wordpress/blocks';
 import { __ } from '@wordpress/i18n';
 import { InnerBlocks, InspectorControls } from "@wordpress/editor";
 import { PanelBody, RangeControl } from "@wordpress/components";
@@ -18,6 +18,31 @@ registerBlockType('mytheme-blocks/teammembers', {
     supports: {
         html: false,
         align: ['wide', 'full']
+    },
+    transforms: {
+        from: [
+            {
+                type: 'block',
+                blocks: ['core/gallery'],
+                transform: ({columns, images}) => {
+                    let inner = images.map(({alt, id, url}) => createBlock('mytheme-blocks/teammember', {alt, id, url}));
+                    return createBlock('mytheme-blocks/teammembers', {
+                        columns: columns
+                    }, inner)
+                }
+            },
+            {
+                type: 'block',
+                blocks: ['core/image'],
+                isMultiBlock: true,
+                transform: (attributes) => {
+                    let inner = attributes.map(({alt, id, url}) => createBlock('mytheme-blocks/teammember', {alt, id, url}));
+                    return createBlock('mytheme-blocks/teammembers', {
+                        columns: attributes.length
+                    }, inner)
+                }
+            }
+        ]
     },
     keywords: [ __('team', 'mytheme-blocks'), __('member', 'mytheme-blocks'), __('person', 'mytheme-blocks')],
     attributes,
